@@ -17,7 +17,6 @@ splitLine = lambda s, n: [s[n*i:n*i+n] for i in xrange(len(s)/n)]
 
 def hexToAscii(s):
     b = bin(int(s, 16)).partition('b')[2]
-    print b
     chs = splitLine(b, 6)
     ret = [chr(int(ch, 2) + 63) for ch in chs]
     return ''.join(ret)

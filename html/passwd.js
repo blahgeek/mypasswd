@@ -13,7 +13,7 @@ g = function(passwd, domain){
         var ret = '';
         for(var i = 0 ; i < s.length ; i ++){
             var tmp= parseInt(s.substr(i, 1), 16).toString(2);
-            while(tmp.length < 4) tmp = '0' + tmp;
+            if(i!=0)while(tmp.length < 4) tmp = '0' + tmp;
             b += tmp;
         }
         for(var i = 0 ; i < b.length - b.length%6; i += 6)
