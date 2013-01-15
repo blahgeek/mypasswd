@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Password generator">
+    <meta name="author" content="BlahGeek">
+
+    <script src="min.js"></script>
+    <link rel="stylesheet" href="min.css"></script>
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-ipad3-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-iphone4-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-ipad-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-iphone.png">
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-signin">
+        <h2 class="form-signin-heading">My Password</h2>
+        <input type="password" id="password" class="input-block-level" placeholder="Password">
+        <input type="text" id="domain" class="input-block-level" placeholder="Domain">
+        <button onclick="c()" class="btn btn-large btn-primary" style="width: 100%">Generate</button>
+        <div style="padding-top: 20px;">
+          <pre id="results">
+          </pre>
+        </div>
+      </div>
+    </div> <!-- /container -->
+</body>
+</html>
