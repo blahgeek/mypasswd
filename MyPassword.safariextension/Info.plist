@@ -44,6 +44,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>Description</key>
+	<string>My password generator</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -56,5 +58,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Website</key>
+	<string>https://github.com/blahgeek/mypasswd</string>
 </dict>
 </plist>
