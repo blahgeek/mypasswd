@@ -1,4 +1,12 @@
-g = function(passwd, domain){
+g = function(p, domain){
+    var magic = [10, 7, 9, 17, 27, 35];
+    var passwd = '';
+    for(var i = 0 ; i < p.length ; i += 1) {
+        var delta = 0;
+        if(i < magic.length)
+            delta = magic[i] - (i+1)*(i+1);
+        passwd += String.fromCharCode(p.charCodeAt(i) + delta);
+    }
     var t = function(s){
         for(var i = 0 ; i < 10 ; i ++){
             var sha = new jsSHA(s, 'TEXT');
