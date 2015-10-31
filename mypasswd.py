@@ -2,11 +2,7 @@
 # -*- coding=UTF-8 -*-
 # Created at Jan 12 11:39 by BlahGeek@Gmail.com
 
-import subprocess
-import os
 from hashlib import sha512
-from tempfile import gettempdir
-from PIL import Image, ImageDraw, ImageFont
 import argparse
 
 
@@ -18,6 +14,30 @@ def fixpasswd(p):
     for i, c in enumerate(p):
         delta = magic[i] - (i+1) ** 2 if i < len(magic) else 0
         ret += chr(ord(c) + delta)
+    return ret
+
+def extract(s):
+    ret = ''
+
+    p = -1
+    for i, c in enumerate(s):
+        if not c.isalpha():
+            p = i
+            break
+    assert p != -1
+
+    while True:
+        p += 10
+        if p >= len(s):
+            break
+        ret += s[p]
+
+    p -= 10
+    p = p+1 if p+1 < len(s) else p-9
+    while len(ret) < 10:
+        ret += s[p]
+        p -= 10
+
     return ret
 
 def hexToAscii(s):
@@ -37,29 +57,10 @@ def generate(passwd, domain):
     ret = hexToAscii(ret)
     return splitLine(ret, 10)
 
-def buildImage(lines, size=(150, 250)):
-    background = (252, 244, 220)
-    foreground = (83, 104, 112)
-    font = ImageFont.truetype('Inconsolata-Regular.ttf', 28)
-    img = Image.new('RGB', size, background)
-    draw = ImageDraw.Draw(img)
-
-    height = 10
-    for i, line in enumerate(lines):
-        textsize = draw.textsize(line, font=font)
-        draw.text(((size[0] - textsize[0]) / 2, height), line, fill=foreground, font=font)
-        height += textsize[1]
-
-    filename = os.path.join(gettempdir(), 'mypasswd.png')
-    with open(filename, 'wb') as f:
-        img.save(f)
-    return filename
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate my password.')
     parser.add_argument('-p', '--password', help='Master password')
-    parser.add_argument('-f', '--float', action='store_true', help='Output using screenfloat instead of stdout')
     parser.add_argument('domain', nargs='+', help='Domain, multiple arguments will be concatenated')
 
     args = parser.parse_args()
@@ -72,9 +73,5 @@ if __name__ == '__main__':
 
     passwd = fixpasswd(passwd)
     result = generate(passwd, domain)
-    if not args.float:
-        print '\n'.join(result)
-    else:
-        img = buildImage(result)
-        subprocess.check_output(['open', '-a', '/Applications/ScreenFloat.app', img])
+    print extract(''.join(result))
 
